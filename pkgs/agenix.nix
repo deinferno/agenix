@@ -143,7 +143,11 @@ function edit {
         cp "$CLEARTEXT_FILE" "$CLEARTEXT_FILE.before"
     fi
 
-    $EDITOR "$CLEARTEXT_FILE"
+    if [ $EDITOR = "-" ]; then
+      cat - > "$CLEARTEXT_FILE"
+    else
+      $EDITOR "$CLEARTEXT_FILE"
+    fi
 
     if [ ! -f "$CLEARTEXT_FILE" ]
     then
